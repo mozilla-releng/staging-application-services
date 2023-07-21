@@ -4,4 +4,5 @@
 arrow
 pyyaml
 taskcluster
-taskcluster-taskgraph>=5.2.1
+taskcluster-taskgraph
+mozilla-taskgraph@git+https://github.com/mozilla-releng/mozilla-taskgraph@refs/pull/19/head

@@ -215,6 +215,7 @@ tasks:
                                     ANDROID_SDK_ROOT: /builds/worker/android-sdk
                                     MOZ_FETCHES_DIR: /builds/worker/fetches
                                     TASKCLUSTER_CACHES: /builds/worker/checkouts
+                                    PIP_DISABLE_REQUIRE_HASHES: 1
                                   - $if: 'tasks_for in ["github-pull-request"]'
                                     then:
                                         APPSERVICES_PULL_REQUEST_TITLE: '${event.pull_request.title}'
