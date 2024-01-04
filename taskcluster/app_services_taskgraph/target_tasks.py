@@ -95,6 +95,7 @@ def filter_release_promotion(
 
 @register_target_task("promote")
 def target_tasks_promote(full_task_graph, parameters, graph_config):
+    return []
     return filter_release_promotion(
         full_task_graph,
         filtered_for_candidates=[],
@@ -104,6 +105,7 @@ def target_tasks_promote(full_task_graph, parameters, graph_config):
 
 @register_target_task("ship")
 def target_tasks_ship(full_task_graph, parameters, graph_config):
+    return []
     filtered_for_candidates = target_tasks_promote(
         full_task_graph,
         parameters,
