@@ -36,7 +36,7 @@ workers:
       worker-type:
         by-level:
           "3": app-services-3-signing
-          default: app-services-t-signing
+          default: app-services-t-signing-dev
     beetmover:
       provisioner: scriptworker-k8s
       implementation: scriptworker-beetmover
